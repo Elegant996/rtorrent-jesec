@@ -222,6 +222,7 @@ initialize_command_tracker() {
   CMD2_ANY_VALUE("trackers.disable", [](const auto&, const auto&) {
     return apply_enable_trackers(int64_t(0));
   });
+  CMD2_VAR_BOOL("trackers.delay_scrape", false);
   CMD2_VAR_VALUE("trackers.numwant", -1);
   CMD2_VAR_BOOL("trackers.use_udp", true);
 

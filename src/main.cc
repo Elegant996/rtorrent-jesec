@@ -155,6 +155,7 @@ load_session_torrents() {
 
     // Replace with session torrent flag.
     f->set_session(true);
+    f->set_init_load(true);
     f->set_immediate(true);
     f->slot_finished([f, &progress_bar, entries_size]() {
       if (control->is_shutdown_received()) {
@@ -199,6 +200,7 @@ load_arg_torrents(char** first, char** last) {
 
     // Replace with session torrent flag.
     f->set_start(true);
+    f->set_init_load(true);
     f->slot_finished([f]() { delete f; });
     f->load(*first);
     f->commit();
