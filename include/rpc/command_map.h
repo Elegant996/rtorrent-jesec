@@ -15,7 +15,7 @@
 namespace rpc {
 
 struct command_map_comp {
-  bool operator()(const char* arg1, const char* arg2) const {
+  constexpr bool operator()(const char* arg1, const char* arg2) const {
     return std::strcmp(arg1, arg2) < 0;
   }
 };

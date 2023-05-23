@@ -17,13 +17,13 @@ RpcManager rpc;
 ExecFile   execFile;
 
 struct command_map_is_space {
-  bool operator()(char c) const {
+  constexpr bool operator()(char c) const {
     return c == ' ' || c == '\t';
   }
 };
 
 struct command_map_is_newline {
-  bool operator()(char c) const {
+  constexpr bool operator()(char c) const {
     return c == '\n' || c == '\0' || c == ';';
   }
 };
