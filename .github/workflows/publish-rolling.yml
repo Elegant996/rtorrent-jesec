@@ -9,6 +9,10 @@ jobs:
   docker:
     runs-on: ${{ matrix.os }}
 
+    permissions:
+      packages: write
+      contents: read
+
     strategy:
       fail-fast: false
       matrix:
