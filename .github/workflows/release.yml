@@ -12,10 +12,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        arch: ["arm64", "amd64"]
+        arch: ["amd64"]
         include:
-          - arch: arm64
-            os: self-hosted-arm64
           - arch: amd64
             os: ubuntu-20.04
 
@@ -52,7 +50,7 @@ jobs:
           platforms: linux/${{ matrix.arch }}
           push: true
           tags: |
-            jesec/rtorrent:latest-${{ matrix.arch }}
+            elegant996/rtorrent:latest-${{ matrix.arch }}
 
       - name: Extract built rTorrent artifacts from Docker image
         run: |
@@ -124,11 +122,8 @@ jobs:
       - run: |
           cp artifacts/rtorrent-linux-amd64/* .
           cp artifacts/rtorrent-linux-amd64/rtorrent rtorrent-linux-amd64
-          cp artifacts/rtorrent-linux-arm64/rtorrent rtorrent-linux-arm64
           cp artifacts/rtorrent-deb-amd64/rtorrent-deb.deb rtorrent-linux-amd64.deb
-          cp artifacts/rtorrent-deb-arm64/rtorrent-deb.deb rtorrent-linux-arm64.deb
           cp artifacts/rtorrent-rpm-amd64/rtorrent-rpm.rpm rtorrent-linux-amd64.rpm
-          cp artifacts/rtorrent-rpm-arm64/rtorrent-rpm.rpm rtorrent-linux-arm64.rpm
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -140,8 +135,5 @@ jobs:
             rtorrent-linux-amd64
             rtorrent-linux-amd64.deb
             rtorrent-linux-amd64.rpm
-            rtorrent-linux-arm64
-            rtorrent-linux-arm64.deb
-            rtorrent-linux-arm64.rpm
             rtorrent.rc
             rtorrent@.service
