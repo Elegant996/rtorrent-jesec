@@ -50,7 +50,7 @@ jobs:
           platforms: linux/${{ matrix.arch }}
           push: true
           tags: |
-            elegant996/rtorrent:master-${{ matrix.arch }}
+            ghcr.io/elegant996/rtorrent:master-${{ matrix.arch }}
 
       - name: Extract built rTorrent artifacts from Docker image
         run: |
