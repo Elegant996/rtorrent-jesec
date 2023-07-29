@@ -77,7 +77,7 @@ Lockfile::try_lock() {
   if (pos == 0) {
     ssize_t len = std::strlen(buf);
     ::snprintf(buf + len, 255 - len, ":+%i\n", ::getpid());
-    ssize_t __attribute__((unused)) result = ::write(fd, buf, std::strlen(buf));
+    int __attribute__((unused)) result = ::write(fd, buf, std::strlen(buf));
   }
 
   ::close(fd);
