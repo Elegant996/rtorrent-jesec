@@ -19,10 +19,7 @@ RUN apt-get update && apt-get install -y \
       build-essential \
       git \
       python-is-python3 \
-      python3 \
-      rpm
-
-RUN rpm --initdb
+      python3
 
 # Checkout rTorrent sources from current directory
 COPY . ./
@@ -40,7 +37,6 @@ RUN bazel build rtorrent-deb --features=fully_static_link --verbose_failures
 RUN mkdir dist
 RUN cp -L bazel-bin/rtorrent dist/
 RUN cp -L bazel-bin/rtorrent-deb.deb dist/
-RUN cp -L bazel-bin/rtorrent-rpm.rpm dist/
 
 # Now get the clean image
 FROM ${ALPINE_IMAGE} as build-sysroot
