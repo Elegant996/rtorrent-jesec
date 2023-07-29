@@ -21,8 +21,11 @@ RUN apt-get update && apt-get install -y \
       python-is-python3 \
       python3
 
+# Checkout rTorrent sources from current directory
+COPY . ./
+
 # # Checkout rTorrent sources from Github repository
-RUN git clone --depth 1 https://github.com/Elegant996/rtorrent .
+# RUN git clone --depth 1 https://github.com/Elegant996/rtorrent .
 
 # Set architecture for packages
 RUN sed -i 's/architecture = \"all\"/architecture = \"amd64\"/' BUILD.bazel
