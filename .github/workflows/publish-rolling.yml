@@ -5,13 +5,12 @@ on:
     branches:
       - master
 
+env:
+  IMAGE_NAME: rtorrent
+
 jobs:
   docker:
     runs-on: ${{ matrix.os }}
-
-    permissions:
-      packages: write
-      contents: read
 
     strategy:
       fail-fast: false
@@ -44,13 +43,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           platforms: linux/${{ matrix.arch }}
           push: true
           tags: |
-            ghcr.io/elegant996/rtorrent:master-${{ matrix.arch }}
+            ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:master-${{ matrix.arch }}
 
       - name: Extract built rTorrent artifacts from Docker image
         run: |
@@ -71,8 +70,3 @@ jobs:
         with:
           name: rtorrent-deb-${{ matrix.arch }}
           path: root/rtorrent/dist/rtorrent-deb.deb
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: rtorrent-rpm-${{ matrix.arch }}
-          path: root/rtorrent/dist/rtorrent-rpm.rpm
