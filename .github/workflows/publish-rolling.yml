@@ -6,8 +6,7 @@ on:
       - master
 
 env:
-  IMAGE_NAME: rtorrent
-  OWNER: '${{ github.repository_owner }}'
+  REPO: '${{ github.repository }}'
 
 jobs:
   docker:
@@ -45,7 +44,7 @@ jobs:
 
       - name: Set image identity
         run: |
-          echo "IMAGE_ID=ghcr.io/${OWNER,,}/$IMAGE_NAME" >>${GITHUB_ENV}
+          echo "IMAGE_ID=ghcr.io/${REPO,,}" >>${GITHUB_ENV}
 
       - name: Publish to Docker Hub
         uses: docker/build-push-action@v4
