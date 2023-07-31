@@ -50,7 +50,7 @@ jobs:
         id: image_id
         run: echo ::set-output name=ID::${GITHUB_REPOSITORY,,}
 
-      - name: Publish to Docker Hub
+      - name: Publish to GitHub Container Registry
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -69,12 +69,12 @@ jobs:
           mkdir dist-${{ matrix.arch }}
           cp doc/rtorrent.rc doc/rtorrent@.service root/rtorrent/dist/rtorrent dist-${{ matrix.arch }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: rtorrent-linux-${{ matrix.arch }}
           path: dist-${{ matrix.arch }}/*
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: rtorrent-deb-${{ matrix.arch }}
           path: root/rtorrent/dist/rtorrent-deb.deb

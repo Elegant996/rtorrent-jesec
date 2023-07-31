@@ -9,6 +9,10 @@ jobs:
   docker:
     runs-on: ${{ matrix.os }}
 
+    permissions:
+      packages: write
+      contents: read
+
     strategy:
       fail-fast: true
       matrix:
@@ -18,7 +22,7 @@ jobs:
             os: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get the version
         id: get_version
@@ -37,20 +41,25 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to Docker Hub
-        uses: docker/build-push-action@v2
+      - name: Set image identity
+        id: image_id
+        run: echo ::set-output name=ID::${GITHUB_REPOSITORY,,}
+
+      - name: Publish to GitHub Container Registry
+        uses: docker/build-push-action@v4
         with:
           context: .
           platforms: linux/${{ matrix.arch }}
           push: true
           tags: |
-            elegant996/rtorrent:latest-${{ matrix.arch }}
+            ghcr.io/${{ steps.image_id.outputs.ID }}:latest-${{ matrix.arch }}
 
       - name: Extract built rTorrent artifacts from Docker image
         run: |
@@ -62,20 +71,15 @@ jobs:
           mkdir dist-${{ matrix.arch }}
           cp doc/rtorrent.rc doc/rtorrent@.service root/rtorrent/dist/rtorrent dist-${{ matrix.arch }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: rtorrent-linux-${{ matrix.arch }}
           path: dist-${{ matrix.arch }}/*
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: rtorrent-deb-${{ matrix.arch }}
           path: root/rtorrent/dist/rtorrent-deb.deb
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: rtorrent-rpm-${{ matrix.arch }}
-          path: root/rtorrent/dist/rtorrent-rpm.rpm
 
   docker-manifest:
     needs: docker
@@ -123,7 +127,6 @@ jobs:
           cp artifacts/rtorrent-linux-amd64/* .
           cp artifacts/rtorrent-linux-amd64/rtorrent rtorrent-linux-amd64
           cp artifacts/rtorrent-deb-amd64/rtorrent-deb.deb rtorrent-linux-amd64.deb
-          cp artifacts/rtorrent-rpm-amd64/rtorrent-rpm.rpm rtorrent-linux-amd64.rpm
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -134,6 +137,5 @@ jobs:
           files: |
             rtorrent-linux-amd64
             rtorrent-linux-amd64.deb
-            rtorrent-linux-amd64.rpm
             rtorrent.rc
             rtorrent@.service
