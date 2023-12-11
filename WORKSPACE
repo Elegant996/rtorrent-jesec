@@ -6,7 +6,7 @@ http_archive(
     name = "libtorrent",
     sha256 = "2bbd37886fada22610995f854d1a8ddd6b1982ca5c0c1312318b4f7228de28c7",
     strip_prefix = "libtorrent-b444a194757846d43aa7027295b5ba43168f2be5",
-    url = "https://github.com/jesec/libtorrent/archive/b444a194757846d43aa7027295b5ba43168f2be5.zip",
+    url = "https://github.com/Elegant996/libtorrent/archive/b444a194757846d43aa7027295b5ba43168f2be5.zip",
 )
 
 load("@libtorrent//:libtorrent_repos.bzl", "libtorrent_repos")
