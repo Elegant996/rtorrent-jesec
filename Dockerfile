@@ -1,11 +1,8 @@
-ARG BUILD_IMAGE=ubuntu:22.04
-ARG ALPINE_IMAGE=alpine:3.18
-
 FROM curlimages/curl:8.00.1 as curl
 
 RUN curl -L -o /tmp/bazel https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
 
-FROM ${BUILD_IMAGE} as build
+FROM ubuntu:22.04 as build
 
 COPY --from=curl --chmod=755 /tmp/bazel /usr/local/bin/bazel
 
@@ -39,7 +36,7 @@ RUN cp -L bazel-bin/rtorrent dist/
 RUN cp -L bazel-bin/rtorrent-deb.deb dist/
 
 # Now get the clean image
-FROM ${ALPINE_IMAGE} as build-sysroot
+FROM alpine:3.19 as build-sysroot
 
 WORKDIR /root
 
@@ -58,7 +55,7 @@ RUN tar xvf data.tar.* -C /root/sysroot/
 
 RUN mkdir -p /root/sysroot/download /root/sysroot/session /root/sysroot/watch
 
-FROM ${ALPINE_IMAGE} as rtorrent
+FROM alpine:3.19 as rtorrent
 
 RUN apk --no-cache add \
       bash \
