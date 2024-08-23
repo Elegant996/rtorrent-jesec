@@ -122,7 +122,7 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: npm ci --no-optional
+      - run: npm ci --omit=optional
       - run: npm run build
 
       - name: End-to-end test rTorrent with Flood's test suite
