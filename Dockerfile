@@ -61,6 +61,7 @@ RUN apk --no-cache add \
       bash \
       curl \
       grep \
+      jq \
       mktorrent \
       tini \
       tzdata \
