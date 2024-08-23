@@ -56,8 +56,11 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: npm ci --omit=optional
-      - run: npm run build
+      - name: Build using performant NPM dependencies
+        run: |
+          npm i -g pnpm
+          pnpm i --frozen-lockfile
+          npm run build
 
       - run: rtorrent || true
 

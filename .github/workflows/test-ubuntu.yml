@@ -122,8 +122,11 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: npm ci --omit=optional
-      - run: npm run build
+      - name: Build NPM with performant dependencies
+        run: |
+          npm i -g pnpm
+          pnpm i --frozen-lockfile
+          npm run build
 
       - name: End-to-end test rTorrent with Flood's test suite
         uses: nick-invision/retry@v2
