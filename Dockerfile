@@ -58,11 +58,11 @@ RUN mkdir -p /root/sysroot/download /root/sysroot/session /root/sysroot/watch
 FROM alpine:3.19 as rtorrent
 
 RUN apk --no-cache add \
-      bash \
-      curl \
-      grep \
+      binutils \
+      ca-certificates \
       jq \
       mktorrent \
+      ncurses-terminfo-base \
       tini \
       tzdata \
       unzip \
