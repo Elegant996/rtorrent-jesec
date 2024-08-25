@@ -1,13 +1,13 @@
-FROM curlimages/curl:8.9.1 as curl
+FROM curlimages/curl:8.9.1 AS curl
 
 RUN curl -L -o /tmp/bazel https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
 
-FROM ubuntu:24.04 as build
+FROM ubuntu:24.04 AS build
 
 COPY --from=curl --chmod=755 /tmp/bazel /usr/local/bin/bazel
 
-ENV RTORRENT_VERSION 0.9.8
-ENV RTORRENT_REVISION r17
+ENV RTORRENT_VERSION=0.9.8
+ENV RTORRENT_REVISION=r17
 
 WORKDIR /root/rtorrent
 
@@ -36,7 +36,7 @@ RUN cp -L bazel-bin/rtorrent dist/
 RUN cp -L bazel-bin/rtorrent-deb.deb dist/
 
 # Now get the clean image
-FROM alpine:3.20 as build-sysroot
+FROM alpine:3.20 AS build-sysroot
 
 WORKDIR /root
 
@@ -55,7 +55,7 @@ RUN tar xvf data.tar.* -C /root/sysroot/
 
 RUN mkdir -p /root/sysroot/download /root/sysroot/session /root/sysroot/watch
 
-FROM alpine:3.20 as rtorrent
+FROM alpine:3.20 AS rtorrent
 
 RUN apk --no-cache add \
       binutils \
