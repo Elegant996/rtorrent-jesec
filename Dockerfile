@@ -36,7 +36,7 @@ RUN cp -L bazel-bin/rtorrent dist/
 RUN cp -L bazel-bin/rtorrent-deb.deb dist/
 
 # Now get the clean image
-FROM alpine:3.19 as build-sysroot
+FROM alpine:3.20 as build-sysroot
 
 WORKDIR /root
 
@@ -55,7 +55,7 @@ RUN tar xvf data.tar.* -C /root/sysroot/
 
 RUN mkdir -p /root/sysroot/download /root/sysroot/session /root/sysroot/watch
 
-FROM alpine:3.19 as rtorrent
+FROM alpine:3.20 as rtorrent
 
 RUN apk --no-cache add \
       binutils \
