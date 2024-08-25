@@ -2,7 +2,7 @@ FROM curlimages/curl:8.00.1 as curl
 
 RUN curl -L -o /tmp/bazel https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
 
-FROM ubuntu:22.04 as build
+FROM ubuntu:24.04 as build
 
 COPY --from=curl --chmod=755 /tmp/bazel /usr/local/bin/bazel
 
