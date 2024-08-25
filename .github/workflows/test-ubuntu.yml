@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - run: sudo apt update
       - run: sudo apt install -y build-essential ninja-build libgtest-dev libcurl4-openssl-dev libncursesw5-dev libssl-dev nlohmann-json3-dev zlib1g-dev
 
       - name: Checkout libTorrent
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: elegant996/libtorrent
           path: libtorrent
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - run: sudo apt update
       - run: sudo apt install -y build-essential
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Clang
         run: |
