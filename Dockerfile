@@ -1,4 +1,4 @@
-FROM curlimages/curl:8.00.1 as curl
+FROM curlimages/curl:8.9.1 as curl
 
 RUN curl -L -o /tmp/bazel https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
 
