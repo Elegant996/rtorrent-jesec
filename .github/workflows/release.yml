@@ -71,12 +71,12 @@ jobs:
         mkdir dist-${{ matrix.arch }}
         cp doc/rtorrent.rc doc/rtorrent@.service root/rtorrent/dist/rtorrent dist-${{ matrix.arch }}
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: rtorrent-linux-${{ matrix.arch }}
         path: dist-${{ matrix.arch }}/*
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: rtorrent-deb-${{ matrix.arch }}
         path: root/rtorrent/dist/rtorrent-deb.deb

@@ -36,7 +36,7 @@ jobs:
       - run: cmake --install build
       - run: cd build && ctest --verbose
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: rtorrent-linux-cmake
           path: install/
@@ -93,7 +93,7 @@ jobs:
       - run: bazel build --config=clang -s rtorrent-deb
       - run: cp -L bazel-bin/rtorrent-deb.deb rtorrent.deb
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: rtorrent-deb-glibc-amd64
           path: rtorrent.deb
