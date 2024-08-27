@@ -41,26 +41,11 @@ FROM alpine:3.20 AS build-sysroot
 WORKDIR /root
 
 # Fetch runtime dependencies
-RUN apk --no-cache add \
-      binutils \
+RUN mkdir -p /sysroot/etc/apk && cp -r /etc/apk/* /sysroot/etc/apk/
+RUN apk add --no-cache --initdb -p /sysroot \
+      alpine-baselayout \
+      busybox \
       ca-certificates \
-      curl \
-      ncurses-terminfo-base
-
-# Install rTorrent and dependencies to new system root
-RUN mkdir -p /root/sysroot/etc/ssl/certs
-COPY --from=build /root/rtorrent/dist/rtorrent-deb.deb .
-RUN ar -xv rtorrent-deb.deb
-RUN tar xvf data.tar.* -C /root/sysroot/
-
-RUN mkdir -p /root/sysroot/download /root/sysroot/session /root/sysroot/watch
-
-FROM alpine:3.20 AS rtorrent
-
-RUN apk --no-cache add \
-      binutils \
-      ca-certificates \
-      jq \
       mktorrent \
       ncurses-terminfo-base \
       tini \
@@ -69,8 +54,16 @@ RUN apk --no-cache add \
     && apk --no-cache upgrade \
        -X https://dl-cdn.alpinelinux.org/alpine/v3.14/main \
        unrar
+RUN rm -rf /sysroot/etc/apk /sysroot/lib/apk /sysroot/var/cache
 
-COPY --from=build-sysroot /root/sysroot /
+# Install rTorrent to new system root
+RUN mkdir -p /sysroot/etc/rtorrent /sysroot/download /sysroot/session /sysroot/watch
+COPY --from=build /root/rtorrent/dist/rtorrent /sysroot/usr/local/bin
+COPY doc/rtorrent.rc /sysroot/etc/rtorrent
+
+FROM scratch AS rtorrent
+
+COPY --from=build-sysroot /sysroot /
 
 EXPOSE 5000
 
