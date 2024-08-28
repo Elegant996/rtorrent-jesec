@@ -26,7 +26,7 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
 
     - name: Tag release
       run: |
@@ -48,9 +48,12 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Set image identity
-      id: image_id
-      run: echo ::set-output name=ID::${GITHUB_REPOSITORY,,}
+    - name: Sanitize repo slug
+      uses: actions/github-script@v7
+      id: repo_slug
+      with:
+        result-encoding: string
+        script: return '${{ github.repository }}'.toLowerCase()
 
     - name: Publish to GitHub Container Registry
       uses: docker/build-push-action@v4
@@ -59,7 +62,7 @@ jobs:
         platforms: linux/${{ matrix.arch }}
         push: true
         tags: |
-          ghcr.io/${{ steps.image_id.outputs.ID }}:latest-${{ matrix.arch }}
+          ghcr.io/${{ steps.repo_slug.outputs.result }}:latest-${{ matrix.arch }}
 
     - name: Extract built rTorrent artifacts from Docker image
       run: |
@@ -88,7 +91,7 @@ jobs:
     steps:
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
 
     - uses: actions/download-artifact@v4
       with:
