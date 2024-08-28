@@ -56,7 +56,7 @@ jobs:
         script: return '${{ github.repository }}'.toLowerCase()
 
     - name: Publish to GitHub Container Registry
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v6
       with:
         context: .
         platforms: linux/${{ matrix.arch }}
