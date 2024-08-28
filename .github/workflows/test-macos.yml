@@ -65,7 +65,7 @@ jobs:
       - run: rtorrent || true
 
       - name: End-to-end test rTorrent with Flood's test suite
-        uses: nick-invision/retry@v2
+        uses: nick-invision/retry@v3
         with:
           max_attempts: 5
           timeout_minutes: 30
