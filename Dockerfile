@@ -68,4 +68,4 @@ STOPSIGNAL SIGHUP
 ENV HOME=/download
 
 ENTRYPOINT [ "/sbin/tini", "--" ]
-CMD [ "/usr/bin/rtorrent" ]
+CMD [ "/usr/local/bin/rtorrent" ]
