@@ -42,6 +42,7 @@ RUN apk add --no-cache --initdb -p /sysroot \
       alpine-baselayout \
       busybox \
       ca-certificates \
+      jq \
       mktorrent \
       ncurses-terminfo-base \
       tini \
