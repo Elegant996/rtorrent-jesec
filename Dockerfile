@@ -1,10 +1,6 @@
-FROM curlimages/curl:8.9.1 AS curl
-
-RUN curl -L -o /tmp/bazel https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
-
 FROM ubuntu:22.04 AS build
 
-COPY --from=curl --chmod=755 /tmp/bazel /usr/local/bin/bazel
+ADD --chmod=755 https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 /usr/local/bin/bazel
 
 ENV RTORRENT_VERSION=0.9.8
 ENV RTORRENT_REVISION=r17
