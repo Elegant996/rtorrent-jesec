@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 AS build
+FROM ubuntu:24.04 AS build
 
 ADD --chmod=755 https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 /usr/local/bin/bazel
 
