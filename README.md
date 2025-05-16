@@ -10,23 +10,23 @@ There is NO CHANGE in consensus-layer (BitTorrent protocol). As such, this distr
 
 ### Installation
 
-Fully static binaries are available at [Releases](https://github.com/Elegant996/rtorrent/releases).
+Fully static binaries are available at [Releases](https://github.com/Elegant996/rtorrent-jesec/releases).
 
 ```sh
 # Install rTorrent to /usr/local/bin/rtorrent
 # rtorrent-linux-amd64 and rtorrent-linux-arm64 are available
-sudo wget https://github.com/Elegant996/rtorrent/releases/latest/download/rtorrent-linux-amd64 -O /usr/local/bin/rtorrent
+sudo wget https://github.com/Elegant996/rtorrent-jesec/releases/latest/download/rtorrent-linux-amd64 -O /usr/local/bin/rtorrent
 
 # Make it executable
 sudo chmod +x /usr/local/bin/rtorrent
 
 # Default configuration
 sudo mkdir -p /etc/rtorrent
-sudo wget https://github.com/Elegant996/rtorrent/releases/latest/download/rtorrent.rc -O /etc/rtorrent/rtorrent.rc
+sudo wget https://github.com/Elegant996/rtorrent-jesec/releases/latest/download/rtorrent.rc -O /etc/rtorrent/rtorrent.rc
 
 # Install as a systemd service (optional)
 # This example uses "download" user. Replace it with the an existing user that rTorrent should run with.
-sudo wget https://github.com/Elegant996/rtorrent/releases/latest/download/rtorrent@.service -O /etc/systemd/system/rtorrent@.service
+sudo wget https://github.com/Elegant996/rtorrent-jesec/releases/latest/download/rtorrent@.service -O /etc/systemd/system/rtorrent@.service
 sudo systemctl daemon-reload
 sudo systemctl enable rtorrent@download
 sudo systemctl start rtorrent@download
@@ -34,9 +34,9 @@ sudo systemctl start rtorrent@download
 
 Or [install with APT repository](https://deb.jesec.io/)
 
-Or [run with Docker](https://github.com/Elegant996/rtorrent#docker)
+Or [run with Docker](https://github.com/Elegant996/rtorrent-jesec#docker)
 
-Or [build from source](https://github.com/Elegant996/rtorrent#build)
+Or [build from source](https://github.com/Elegant996/rtorrent-jesec#build)
 
 ### Use
 
@@ -52,7 +52,7 @@ To learn how to use rTorrent visit the [Wiki](https://github.com/rakshasa/rtorre
 
 ### Configuration
 
-Default configuration file is available at [doc/rtorrent.rc](https://github.com/Elegant996/rtorrent/blob/master/doc/rtorrent.rc). It is often installed to `/etc/rtorrent/rtorrent.rc`.
+Default configuration file is available at [doc/rtorrent.rc](https://github.com/Elegant996/rtorrent-jesec/blob/master/doc/rtorrent.rc). It is often installed to `/etc/rtorrent/rtorrent.rc`.
 
 You may modify the configuration file to fit your needs. Alternatively, use `-o`, as documented above, to override some configurations but keep using the loaded configuration file.
 
@@ -101,7 +101,7 @@ sudo chmod +x /usr/local/bin/bazel
 sudo apt install build-essential
 
 # Clone repository
-git clone https://github.com/Elegant996/rtorrent.git
+git clone https://github.com/Elegant996/rtorrent-jesec.git
 cd rtorrent
 
 # Build
@@ -123,7 +123,7 @@ You have to install dependencies manually to system or let CMake know where to f
 Dependencies:
 
 - GCC/Clang compiler toolchain and C/C++ development files (C++17 support required)
-- [libtorrent](https://github.com/Elegant996/libtorrent) with development files (core dependency, matching version required)
+- [libtorrent](https://github.com/Elegant996/libtorrent-jesec) with development files (core dependency, matching version required)
 - libcurl with development files
 - libncurses/libncursesw with development files (for terminal UI)
 - nlohmann/json with development files (optional if USE_JSONRPC=OFF, for RPC support)
@@ -138,7 +138,7 @@ Dependencies:
 sudo apt install build-essential cmake libc6-dev libcurl4-openssl-dev libncursesw5-dev libxmlrpc-c++8-dev libgtest-dev nlohmann-json3-dev
 
 # Clone repository
-git clone https://github.com/Elegant996/rtorrent.git
+git clone https://github.com/Elegant996/rtorrent-jesec.git
 cd rtorrent
 
 # Configure and generate Makefile
@@ -156,13 +156,13 @@ sudo make install
 
 ## Docker
 
-[Dockerfile](https://github.com/Elegant996/rtorrent/blob/master/Dockerfile)
+[Dockerfile](https://github.com/Elegant996/rtorrent-jesec/blob/master/Dockerfile)
 
-To test: `docker run -it Elegant996/rtorrent`
+To test: `docker run -it Elegant996/rtorrent-jesec`
 
 Note that you have to expose BitTorrent port (e.g. `-p 50000:50000`) and map folders (e.g. `-v /home/download:/home/download`) yourself.
 
-By default, rTorrent's files are located in `$HOME/.local/share/rtorrent`. Check [doc/rtorrent.rc](https://github.com/Elegant996/rtorrent/blob/master/doc/rtorrent.rc) to know more about the default configurations.
+By default, rTorrent's files are located in `$HOME/.local/share/rtorrent`. Check [doc/rtorrent.rc](https://github.com/Elegant996/rtorrent-jesec/blob/master/doc/rtorrent.rc) to know more about the default configurations.
 
 To integrate with [Flood](https://flood.js.org), see [discussions](https://github.com/jesec/flood/discussions/120).
 

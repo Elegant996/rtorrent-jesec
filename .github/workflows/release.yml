@@ -23,6 +23,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+          persist-credentials: false
 
     - name: Get the version
       id: get_version

@@ -177,7 +177,7 @@ pkg_deb(
     ],
     data = ":rtorrent-pkg-data",
     description = "a stable and high-performance BitTorrent client",
-    homepage = "https://github.com/Elegant996/rtorrent",
+    homepage = "https://github.com/Elegant996/rtorrent-jesec",
     maintainer = "Jesse Chan <jc@linux.com>",
     package = "rtorrent",
     version = "0.9.8-jc+master",

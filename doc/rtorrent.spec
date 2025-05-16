@@ -3,7 +3,7 @@ License:       GPLv2+ with exceptions
 Version:       0.9.8
 Release:       100master.jc
 Summary:       a stable and high-performance BitTorrent client
-URL:           https://github.com/Elegant996/rtorrent
+URL:           https://github.com/Elegant996/rtorrent-jesec
 
 %description
 a stable and high-performance BitTorrent client

@@ -871,7 +871,7 @@ print_help() {
   std::cout << "  o                 View trackers" << std::endl;
   std::cout << std::endl;
 
-  std::cout << "Report bugs to <github.com/Elegant996/rtorrent>." << std::endl;
+  std::cout << "Report bugs to <github.com/Elegant996/rtorrent-jesec>." << std::endl;
 
   exit(0);
 }
